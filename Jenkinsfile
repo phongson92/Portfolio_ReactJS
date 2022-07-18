@@ -20,13 +20,15 @@ pipeline {
     }
         }
         stage ("Build"){
+            agent any
             steps {
-                echo "Build stage"
+                sh 'docker build -t $DOCKER_IMAGE:latest .'
             }
         }
         
-    }
+        
+    }//end stages
         
 
     
-}
+}//end pipeline
