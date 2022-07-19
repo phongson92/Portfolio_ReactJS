@@ -11,7 +11,7 @@ pipeline {
             agent {
                 docker {
                     image 'node:13-alpine'
-                    rgs '-u 0:0 -v /tmp:/root/.cache'
+                    args '-u 0:0 -v /tmp:/root/.cache'
                 }
             }
             steps {
