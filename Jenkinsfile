@@ -49,6 +49,7 @@ pipeline {
                 //sh 'docker ps -aq | xargs docker stop | xargs docker rm &&'
                // sh 'docker stop reactjs && docker rm reactjs'
                 // run image
+                sh 'touch test.txt'
                 sh 'docker run -it -d --name reactjs -p 8080:80 $DOCKER_IMAGE:latest'
             }
         }
