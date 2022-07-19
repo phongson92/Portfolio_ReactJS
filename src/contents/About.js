@@ -10,7 +10,7 @@ class About extends Component {
             <h1>I'm Son Baby Cute Phomaique</h1>
             <h3>DevOps Engineer | System <u>Administrator</u> | Wordpress <u>Designer</u></h3>
             <br></br>
-            <p>I have 5 years of experience in System Administration and Devops Engineer.
+            <p>I have 5 years of experience in System Administration and 1 year Devops Engineer.
             </p>
             
             </div>
