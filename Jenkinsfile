@@ -44,8 +44,10 @@ pipeline {
             agent any       
             steps {
                 sshagent(['deploy_user']) {
-                 sh 'ssh -o StrictHostKeyChecking=no -i /var/jenkins_home/.ssh/web-key.pem root@103.92.25.173'
-                 sh 'touch test.txt'   
+                 sh 'ssh -o StrictHostKeyChecking=no  root@103.92.25.173 && mkdir test'
+                 
+                 
+    
                 }
                 //sh 'ssh -o StrictHostKeyChecking=no -i /var/jenkins_home/.ssh/web-key.pem root@103.92.25.173'
                 
