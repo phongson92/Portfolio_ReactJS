@@ -47,7 +47,7 @@ pipeline {
                 
                 // stop and remove all running container
                 //sh 'docker ps -aq | xargs docker stop | xargs docker rm &&'
-                sh 'docker stop reactjs && docker rm reactjs'
+               // sh 'docker stop reactjs && docker rm reactjs'
                 // run image
                 sh 'docker run -it -d --name reactjs -p 8080:80 $DOCKER_IMAGE:latest'
             }
