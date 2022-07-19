@@ -46,7 +46,7 @@ pipeline {
                 sh 'ssh -o StrictHostKeyChecking=no -i /var/jenkins_home/.ssh/web-key.pem root@103.92.25.173 << EOF'
                 
                 // stop and remove all running container
-              // sh 'docker ps -aq | xargs docker stop | xargs docker rm'
+                sh 'docker ps -aq | xargs docker stop | xargs docker rm'
                 // run image
                sh 'docker run -it -d --name reactjs -p 8080:80 $DOCKER_IMAGE:latest'
             }
