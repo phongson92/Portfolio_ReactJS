@@ -40,7 +40,8 @@ pipeline {
         //     sh "docker image rm ${DOCKER_IMAGE}:latest"
         //     }
         // }
-        stage ("Deploy Image"){           
+        stage ("Deploy Image"){
+            gent any       
             steps {
                 sh 'ssh -o StrictHostKeyChecking=no -i /var/jenkins_home/.ssh/web-key.pem root@103.92.25.173'
                 
