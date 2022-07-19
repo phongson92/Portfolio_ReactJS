@@ -45,9 +45,9 @@ pipeline {
             steps {
                 sshagent(['deploy_user']) {
                     // stop and remove all running container
-                    sh 'ssh -o StrictHostKeyChecking=no root@103.92.25.173  docker ps -aq | xargs docker stop | xargs docker rm'
+                    //sh 'ssh -o StrictHostKeyChecking=no root@103.92.25.173  docker ps -aq | xargs docker stop | xargs docker rm'
                     // deploy image
-                    //sh 'ssh -o StrictHostKeyChecking=no root@103.92.25.173  docker run -it -d --name reactjs -p 8080:80 $DOCKER_IMAGE:latest'
+                    sh 'ssh -o StrictHostKeyChecking=no root@103.92.25.173  docker run -it -d --name reactjs -p 8080:80 $DOCKER_IMAGE:latest'
                 }
             }
         }
