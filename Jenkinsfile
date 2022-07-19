@@ -43,14 +43,17 @@ pipeline {
         stage ("Deploy Image"){
             agent any       
             steps {
-            
+                sshagent(['deploy_user']) {
+                 sh 'ssh -o StrictHostKeyChecking=no -i /var/jenkins_home/.ssh/web-key.pem root@103.92.25.173'
+                 sh 'touch test.txt'   
+                }
                 //sh 'ssh -o StrictHostKeyChecking=no -i /var/jenkins_home/.ssh/web-key.pem root@103.92.25.173'
                 
                 // stop and remove all running container
                 //sh 'docker ps -aq | xargs docker stop | xargs docker rm &&'
                // sh 'docker stop reactjs && docker rm reactjs'
                 // run image              
-             sh 'docker run -it -d --name reactjs -p 8081:80 $DOCKER_IMAGE:latest'
+            // sh 'docker run -it -d --name reactjs -p 8081:80 $DOCKER_IMAGE:latest'
             }
         }
         // stage ("Deploy to K8s"){
