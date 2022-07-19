@@ -41,7 +41,7 @@ pipeline {
         //     }
         // }
         stage ("Deploy Image"){
-            gent any       
+            agent any       
             steps {
                 sh 'ssh -o StrictHostKeyChecking=no -i /var/jenkins_home/.ssh/web-key.pem root@103.92.25.173'
                 
