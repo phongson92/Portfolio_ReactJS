@@ -44,7 +44,7 @@ pipeline {
             agent any       
             steps {
                 sshagent(['deploy_user']) {
-                    sh 'ssh -o StrictHostKeyChecking=no root@103.92.25.173 mkdir -p /root/test'
+                    sh 'ssh -o StrictHostKeyChecking=no root@103.92.25.173 docker ps -aq | xargs docker stop | xargs docker rm &&docker run -it -d --name reactjs -p 8081:80 $DOCKER_IMAGE:latest'
                  //sh 'ssh -o StrictHostKeyChecking=no  root@103.92.25.173 && mkdir -p /root/test'
                  
                  
