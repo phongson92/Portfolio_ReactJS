@@ -25,7 +25,7 @@ pipeline {
             agent any
             steps {
                 sh 'docker build -t $DOCKER_IMAGE:latest .'
-                docker rmi $(docker images -f "dangling=true" -q)
+                sh 'docker rmi $(docker images -f "dangling=true" -q)'
             }
         }
 
