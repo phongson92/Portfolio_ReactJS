@@ -8,6 +8,7 @@ pipeline {
     stages {
         
         stage ("Test") {
+            when { equals expected: true, actual: Test }
             agent {
                 docker {
                     image 'node:13-alpine'
@@ -22,6 +23,7 @@ pipeline {
         }
 
         stage ("Build"){
+            when { equals expected: true, actual: Build }
             agent any
             steps {
                 sh 'docker build -t $DOCKER_IMAGE:latest .'
@@ -45,7 +47,7 @@ pipeline {
             steps {
                 sshagent(['deploy_user']) {
                 // stop, remove all running container and run image
-                   sh "ssh -o StrictHostKeyChecking=no root@103.92.25.173  'docker ps -q --filter name=reactjs | grep -q . && docker stop reactjs'"
+                   sh "ssh -o StrictHostKeyChecking=no root@103.92.25.173  'docker ps -q --filter name=reactjs | grep -q . && docker stop reactjs && docker rm -fv reactjs '"
                     
                    sh "ssh -o StrictHostKeyChecking=no root@103.92.25.173  'docker run -it -d --name reactjs -p 8080:80 $DOCKER_IMAGE:latest' "
                    //sh "ssh -o StrictHostKeyChecking=no root@103.92.25.173  'docker ps -aq | xargs docker stop | xargs docker rm && docker run -it -d --name reactjs -p 8080:80 $DOCKER_IMAGE:latest'"
