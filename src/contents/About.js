@@ -5,7 +5,7 @@ class About extends Component {
     render() {
         return (
             <div className="condiv">
-            <h1 className="subtopic">About Me - Trần Phong Sơn</h1>
+            <h1 className="subtopic">About Me - Sơn</h1>
             <h4>Hey there,</h4>
             <h1>I'm Son Baby Cute Phomaique 123</h1>
             <h3>DevOps Engineer | System <u>Administrator</u> | Wordpress <u>Designer</u></h3>

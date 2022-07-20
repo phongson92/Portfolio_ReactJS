@@ -9,6 +9,9 @@ spec:
   selector:
     matchLabels:
       app: reactapp
+  strategy: 
+    type: Recreate
+    rollingUpdate: null
   template:
     metadata:
       labels:
@@ -18,6 +21,7 @@ spec:
       containers:
       - name: reactjs-server
         image: phongson92/portfolio-reactjs
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
         
