@@ -57,7 +57,7 @@ pipeline {
         stage ("Deploy to K8s"){
             agent any       
             steps {
-                sh 'kubectl delete -f deploymentservice.yml'
+               // sh 'kubectl delete -f deploymentservice.yml'
                 script {
                     script {
           kubernetesDeploy(configs: "deploymentservice.yml", kubeconfigId: "kubernetes")
