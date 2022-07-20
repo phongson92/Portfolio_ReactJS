@@ -45,7 +45,7 @@ pipeline {
             steps {
                 sshagent(['deploy_user']) {
                 // stop, remove all running container and run image
-                   sh "ssh -o StrictHostKeyChecking=no root@103.92.25.173  'docker ps -q --filter 'name=reactjs' | grep -q . && docker stop reactjs && docker rm -fv reactjs && docker run -it -d --name reactjs -p 8080:80 $DOCKER_IMAGE:latest'"
+                   sh "ssh -o StrictHostKeyChecking=no root@103.92.25.173  'docker ps -q --filter name=reactjs | grep -q . && docker stop reactjs && docker rm -fv reactjs && docker run -it -d --name reactjs -p 8080:80 $DOCKER_IMAGE:latest'"
                    //sh "ssh -o StrictHostKeyChecking=no root@103.92.25.173  'docker ps -aq | xargs docker stop | xargs docker rm && docker run -it -d --name reactjs -p 8080:80 $DOCKER_IMAGE:latest'"
                 }
             }
