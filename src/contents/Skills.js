@@ -5,7 +5,7 @@ class Skills extends Component {
     {
         super(props);
         this.state={
-            'myskills':['Git','GitHub','Gitlab-CI','Jenkins','Kubernetes','Docker','Python','Terraform','Ansible','ArgoCD']
+            'myskills':['Git','Cua gai','GitHub','Gitlab-CI','Jenkins','Kubernetes','Docker','Python','Terraform','Ansible','ArgoCD']
         };
     }
 
