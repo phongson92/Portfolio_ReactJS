@@ -49,12 +49,12 @@ pipeline {
             }
             steps {
                 script {
-                    dockerimage = docker.build DOCKER_IMAGE + "$BUILD_NUMBER"
+                    dockerimage = docker.build DOCKER_IMAGE
                     docker.withRegistry('', registryCredential){
-                        dockerimage.push()
+                        dockerimage.push("$BUILD_NUMBER")
                         dockerimage.push('latest')
-                    sh "docker image rm ${DOCKER_IMAGE}:latest"
-                    sh "docker image rm ${DOCKER_IMAGE}:$BUILD_NUMBER"
+                    //sh "docker image rm ${DOCKER_IMAGE}:latest"
+                    //sh "docker image rm ${DOCKER_IMAGE}:$BUILD_NUMBER"
                     }
                     
                 }
