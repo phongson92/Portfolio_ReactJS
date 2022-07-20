@@ -8,7 +8,7 @@ pipeline {
     stages {
         
         // stage ("Test") {
-             
+            //when { equals expected: true, actual: Test }   
         //     agent {
         //         docker {
         //             image 'node:13-alpine'
@@ -31,15 +31,34 @@ pipeline {
             }
         }
 
-        stage ("Push Image"){
+        // stage ("Push Image"){
+        //     agent any
+        //     steps {
+        //     withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+        //     sh 'echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin'
+        //     sh "docker push ${DOCKER_IMAGE}:latest"
+        // }   
+        //     //clean to save disk
+        //     sh "docker image rm ${DOCKER_IMAGE}:latest"
+        //     }
+        // }
+         stage ("Push Image - Code 2"){
             agent any
+            environment {
+                registryCredential = 'docker-hub'
+            }
             steps {
-            withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-            sh 'echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin'
-            sh "docker push ${DOCKER_IMAGE}:latest"
-        }   
-            //clean to save disk
-            sh "docker image rm ${DOCKER_IMAGE}:latest"
+                script {
+                    dockerimage = docker.build DOCKER_IMAGE + "$BUILD_NUMBER"
+                    docker.withRegistry('', registryCredential){
+                        dockerimage.push()
+                        dockerimage.push('latest')
+                    sh "docker image rm ${DOCKER_IMAGE}:latest"
+                    sh "docker image rm ${DOCKER_IMAGE}:$BUILD_NUMBER"
+                    }
+                    
+                }
+           
             }
         }
         stage ("Deploy Image to Test"){
@@ -55,7 +74,7 @@ pipeline {
         }
         stage ("Deploy to K8s"){
             agent any       
-            
+
             steps {
                     script {
           kubernetesDeploy(configs: "deploymentservice.yml", kubeconfigId: "kubernetes")
