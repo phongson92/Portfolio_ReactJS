@@ -6,9 +6,8 @@ pipeline {
     }
 
     stages {
-        agent any
         stage ("Test") {
-            when { equals expected: true, actual: Test }   
+            //when { equals expected: true, actual: Test }   
             agent {
                 docker {
                     image 'node:13-alpine'
