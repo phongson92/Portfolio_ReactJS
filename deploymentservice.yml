@@ -20,7 +20,7 @@ spec:
       nodeName: tlinkvn-2434-k8s-node3 #set default node to run deployment
       containers:
       - name: reactjs-server
-        image: phongson92/portfolio-reactjs:66
+        image: phongson92/portfolio-reactjs:67
         imagePullPolicy: Always
         ports:
         - containerPort: 80

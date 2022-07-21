@@ -6,30 +6,30 @@ pipeline {
     }
 
     stages {
-        
-        // stage ("Test") {
-            //when { equals expected: true, actual: Test }   
-        //     agent {
-        //         docker {
-        //             image 'node:13-alpine'
-        //             args '-u 0:0 -v /tmp:/root/.cache'
-        //         }
-        //     }
-        //     steps {
-        //         sh "npm install"
-        //         sh "npm test"
-            
-        //      }
-        // }
-
-        stage ("Build"){
-            
-            agent any
-            steps {
-                sh 'docker build -t $DOCKER_IMAGE:latest .'
-                 
+        agent any
+        stage ("Test") {
+            when { equals expected: true, actual: Test }   
+            agent {
+                docker {
+                    image 'node:13-alpine'
+                    args '-u 0:0 -v /tmp:/root/.cache'
+                }
             }
+            steps {
+                sh "npm install"
+                sh "npm test"
+            
+             }
         }
+
+        // stage ("Build"){
+            
+        //     agent any
+        //     steps {
+        //         sh 'docker build -t $DOCKER_IMAGE:latest .'
+                 
+        //     }
+        // }
 
         // stage ("Push Image"){
         //     agent any
@@ -42,7 +42,7 @@ pipeline {
         //     sh "docker image rm ${DOCKER_IMAGE}:latest"
         //     }
         // }
-         stage ("Push Image - Code 2"){
+         stage ("Build and Push Image"){
             agent any
             environment {
                 registryCredential = 'docker-hub'
