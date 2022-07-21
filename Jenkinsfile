@@ -14,7 +14,11 @@ pipeline {
                     args '-u 0:0 -v /tmp:/root/.cache'
                 }
             }
+            options {
+                ansiColor('xterm')
+            }
             steps {
+                 echo '\033[35m THIS IS TEST STAGE \033[0m'
                 sh "npm install"
                 sh "npm test"
             
@@ -43,10 +47,14 @@ pipeline {
         // }
          stage ("Build and Push Image"){
             agent any
+             options {
+                ansiColor('xterm')
+            }
             environment {
                 registryCredential = 'docker-hub'
             }
             steps {
+                  echo '\033[35m THIS IS BUILD AND PUSH STAGE \033[0m'
                 script {
                     dockerimage = docker.build DOCKER_IMAGE
                     docker.withRegistry('', registryCredential){
@@ -61,8 +69,12 @@ pipeline {
             }
         }
         stage ("Deploy Image to Test"){
-            agent any       
+            agent any  
+             options {
+                ansiColor('xterm')
+            }     
             steps {
+                 echo '\033[35m THIS IS DEPLOY IMAGE TO TEST STAGE \033[0m'
                 sshagent(['deploy_user']) {
                    sh "ssh -o StrictHostKeyChecking=no root@103.92.25.173  'docker ps -q --filter name=reactjs | grep -q . && docker stop reactjs && docker rm -fv reactjs '"
                    sh "ssh -o StrictHostKeyChecking=no root@103.92.25.173 'docker rmi $DOCKER_IMAGE'" 
@@ -73,8 +85,11 @@ pipeline {
         }
         stage ("Deploy to K8s"){
             agent any       
-
+            options {
+                ansiColor('xterm')
+            }  
             steps {
+                echo '\033[35m THIS IS DEPLOY IMAGE TO K8S STAGE \033[0m'
                     script {
           kubernetesDeploy(configs: "deploymentservice.yml", kubeconfigId: "kubernetes")
         }             
