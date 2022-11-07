@@ -60,6 +60,7 @@ pipeline {
                     docker.withRegistry('', registryCredential){
                         dockerimage.push("$BUILD_NUMBER")
                         dockerimage.push('latest')
+                     //clean to save disk
                     sh "docker image rm ${DOCKER_IMAGE}:latest"
                     sh "docker image rm ${DOCKER_IMAGE}:$BUILD_NUMBER"
                     }
@@ -76,10 +77,10 @@ pipeline {
             steps {
                  echo '\033[35m THIS IS DEPLOY IMAGE TO TEST STAGE \033[0m'
                 sshagent(['deploy_user']) {
-                   sh "ssh -o StrictHostKeyChecking=no root@103.92.25.173  'docker ps -q --filter name=reactjs | grep -q . && docker stop reactjs && docker rm -fv reactjs '"
-                   sh "ssh -o StrictHostKeyChecking=no root@103.92.25.173 'docker rmi $DOCKER_IMAGE'" 
-                   sh "ssh -o StrictHostKeyChecking=no root@103.92.25.173  'docker run -it -d --name reactjs -p 8080:80 $DOCKER_IMAGE:$BUILD_NUMBER' "
-                   //sh "ssh -o StrictHostKeyChecking=no root@103.92.25.173  'docker ps -aq | xargs docker stop | xargs docker rm && docker run -it -d --name reactjs -p 8080:80 $DOCKER_IMAGE:latest'"
+                   sh "ssh -o StrictHostKeyChecking=no root@103.92.25.173 -p 2222  'docker ps -q --filter name=reactjs | grep -q . && docker stop reactjs && docker rm -fv reactjs '"
+                   sh "ssh -o StrictHostKeyChecking=no root@103.92.25.173 -p 2222 'docker rmi $DOCKER_IMAGE'" 
+                   sh "ssh -o StrictHostKeyChecking=no root@103.92.25.173 -p 2222  'docker run -it -d --name reactjs -p 8080:80 $DOCKER_IMAGE:$BUILD_NUMBER' "
+                   //sh "ssh -o StrictHostKeyChecking=no root@103.92.25.173 -p 2222 'docker ps -aq | xargs docker stop | xargs docker rm && docker run -it -d --name reactjs -p 8080:80 $DOCKER_IMAGE:latest'"
                 }
             }
         }
