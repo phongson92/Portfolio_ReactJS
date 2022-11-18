@@ -12,7 +12,7 @@ it('renders without crashing', () => {
 //dummy test
 describe('Addition', () => {
   it('knows that 2 and 2 make 4', () => {
-    expect(2 + 2).toBe(5);
+    expect(2 + 2).toBe(4);
   });
 });
 //Testing Components
