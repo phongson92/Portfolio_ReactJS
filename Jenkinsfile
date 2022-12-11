@@ -61,8 +61,8 @@ pipeline {
                         dockerimage.push("$BUILD_NUMBER")
                         dockerimage.push('latest')
                      //clean to save disk
-                    //sh "docker image rm ${DOCKER_IMAGE}:latest"
-                    //sh "docker image rm ${DOCKER_IMAGE}:$BUILD_NUMBER"
+                    sh "docker image rm ${DOCKER_IMAGE}:latest"
+                    sh "docker image rm ${DOCKER_IMAGE}:$BUILD_NUMBER"
                     }
                     
                 }
